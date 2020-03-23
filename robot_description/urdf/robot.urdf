@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+<robot name="robot">
+  
+  <material name="grey">
+    <color rgba="0.42 0.42 0.42 1"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.08 0.22 0.48 1"/>
+  </material>
+  
+  <!-- Dummy -->
+  <link name="dummy_link"/>
+  
+  <!-- Base -->
+  <link name="base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="1.458" ixy="0" ixz="0" iyy="1.458" iyz="0" izz="1.25"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="1.0" radius="0.5"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="1.0" radius="0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="base_link">
+    <kp value="1000000"/>
+    <kd value="1"/>
+    <mu1 value="10"/>
+    <mu2 value="10"/>
+    <visual>
+      <material>
+        <ambient>0.00 0.16 0.42 1</ambient>
+        <diffuse>0.04 0.20 0.46 1</diffuse>
+        <specular>0.08 0.24 0.50 1</specular>
+      </material>
+    </visual>
+  </gazebo>
+  <joint name="dummy_base_joint" type="fixed">
+    <parent link="dummy_link"/>
+    <child link="base_link"/>
+  </joint>
+  
+  <!-- Top -->
+  <link name="top_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="0.625" ixy="0" ixz="0" iyy="0.625" iyz="0" izz="0.833"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.707 0.707 0.5"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.707 0.707 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="top_link">
+    <kp value="1000000"/>
+    <kd value="1"/>
+    <mu1 value="10"/>
+    <mu2 value="10"/>
+    <visual>
+      <material>
+        <ambient>0.38 0.38 0.38 1</ambient>
+        <diffuse>0.42 0.42 0.42 1</diffuse>
+        <specular>0.46 0.46 0.46 1</specular>
+      </material>
+    </visual>
+  </gazebo>
+  <joint name="base_top_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="top_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0.75"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="base_top_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>
+
