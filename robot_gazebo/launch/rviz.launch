@@ -1,8 +1,14 @@
 <?xml version="1.0"?>
 <launch>
 
+<!-- publica el estado de todos los joints no fijos del robot cargado en robot_description
+ en el topic /joint_states -->
 <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+<!-- se subscribe a /joint_states y publica las transformaciones de los marcos de coordenadas 
+ en el topic /tf. De esta manera el robot puede ser visualizado en rviz -->
 <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
 <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robot_description)/rviz/config.rviz"/>
 
 </launch>

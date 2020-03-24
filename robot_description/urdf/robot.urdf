@@ -1,5 +1,13 @@
 <?xml version="1.0" ?>
 <robot name="robot">
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <robotNamespace>/robot</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
   
   <material name="grey">
     <color rgba="0.42 0.42 0.42 1"/>

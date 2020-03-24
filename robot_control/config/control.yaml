@@ -1,0 +1,11 @@
+robot:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+    
+  # Position Controllers ---------------------------------------
+  base_top_joint_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: base_top_joint
+    pid: {p: 0.01, i: 0.0, d: 3.0}
